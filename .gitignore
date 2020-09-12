@@ -131,6 +131,7 @@ dmypy.json
 # Terraform files
 terraform*
 .terraform/
+*.tfvars
 
 # AWS files
 aws_credentials
