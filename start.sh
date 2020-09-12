@@ -1,15 +1,18 @@
 #/bin/bash
 
-# If aws_credentials file is not present, ask and save the
-# user's AWS credentials to be used by Terraform
-if ! [ -e ./aws_credentials ]; then
-    echo "Please inform your AWS credentials"
-    read -p "aws_access_key_id: " aws_access_key_id
-    read -p "aws_secret_access_key: " aws_secret_access_key
+# If user.tfvars file is not present, ask and save the
+# user's AWS credentials and region to be used by Terraform
+if ! [ -e ./user.tfvars ]; then
+    echo "Please inform your AWS credentials and region"
+    read -p "region: " region
+    read -p "access_key: " access_key
+    read -p "secret_key: " secret_key
 
-    echo "[default]" > aws_credentials
-    echo "aws_access_key_id = $aws_access_key_id" >> aws_credentials
-    echo "aws_secret_access_key = $aws_secret_access_key" >> aws_credentials
+    echo "region = $region" >> user.tfvars
+    echo "access_key = $access_key" >> user.tfvars
+    echo "secret_key = $secret_key" >> user.tfvars
+    echo "public_key_path = $PWD/id_rsa.pub" >> user.tfvars
+    echo >> user.tfvars
 fi
 
 # if unzip is not present, install it
