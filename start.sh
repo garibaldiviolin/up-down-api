@@ -28,3 +28,10 @@ fi
 # Add current folder to PATH to allow execution of terraform
 export PATH=$PATH:$PWD
 terraform --help
+
+# Ask for user's AWS email and create SSH keys to be used to
+# access all EC2 instances
+if ! [ -e ./id_rsa ]; then
+    read -p "aws_email: " aws_email
+    ssh-keygen -t rsa -b 4096 -C "$aws_email" -f ./id_rsa -q -N ""
+fi
