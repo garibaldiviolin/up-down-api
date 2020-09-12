@@ -8,7 +8,6 @@ if ! [ -e ./user.tfvars ]; then
     read -p "access_key: " access_key
     read -p "secret_key: " secret_key
 
-    echo "region = $region" >> user.tfvars
     echo "access_key = $access_key" >> user.tfvars
     echo "secret_key = $secret_key" >> user.tfvars
     echo "public_key_path = $PWD/id_rsa.pub" >> user.tfvars
