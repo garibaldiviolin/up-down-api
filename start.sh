@@ -25,5 +25,6 @@ if ! [ -e ./terraform ]; then
     unzip terraform_0.11.13_linux_amd64.zip
 fi
 
-export PATH=$PATH:./terraform
-./terraform --help
+# Add current folder to PATH to allow execution of terraform
+export PATH=$PATH:$PWD
+terraform --help
