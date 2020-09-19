@@ -21,13 +21,13 @@ resource "aws_db_subnet_group" "default" {
 # Create a RDS security group in the VPC which our database will belong to.
 resource "aws_security_group" "rds" {
   name        = "terraform_rds_security_group"
-  description = "Terraform example RDS MySQL server"
+  description = "Terraform example RDS Postgres server"
   vpc_id      = "${aws_vpc.vpc.id}"
 
   # Keep the instance private by only allowing traffic from the web server.
   ingress {
-    from_port       = 3306
-    to_port         = 3306
+    from_port       = 5432
+    to_port         = 5432
     protocol        = "tcp"
     security_groups = ["${aws_security_group.default.id}"]
   }
@@ -45,12 +45,12 @@ resource "aws_security_group" "rds" {
   }
 }
 
-# Create a RDS MySQL database instance in the VPC with our RDS subnet group and security group.
+# Create a RDS PostgreSQL database instance in the VPC with our RDS subnet group and security group.
 resource "aws_db_instance" "default" {
   identifier                = "${var.rds_instance_identifier}"
   allocated_storage         = 5
-  engine                    = "mysql"
-  engine_version            = "5.6.35"
+  engine                    = "postgres"
+  engine_version            = "12.3"
   instance_class            = "db.t2.micro"
   name                      = "${var.database_name}"
   username                  = "${var.database_user}"
@@ -61,19 +61,9 @@ resource "aws_db_instance" "default" {
   final_snapshot_identifier = "Ignore"
 }
 
-# Manage the MySQL configuration by creating a parameter group.
+# Manage the PostgreSQL configuration by creating a parameter group.
 resource "aws_db_parameter_group" "default" {
   name        = "${var.rds_instance_identifier}-param-group"
-  description = "Terraform example parameter group for mysql5.6"
-  family      = "mysql5.6"
-
-  parameter {
-    name  = "character_set_server"
-    value = "utf8"
-  }
-
-  parameter {
-    name  = "character_set_client"
-    value = "utf8"
-  }
+  description = "Terraform example parameter group for postgresql12.3-R1"
+  family      = "postgres12"
 }
