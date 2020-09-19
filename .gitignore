@@ -130,7 +130,7 @@ dmypy.json
 
 # Terraform files
 terraform*
-.terraform/
+.terraform*
 *.tfvars
 
 # AWS files
