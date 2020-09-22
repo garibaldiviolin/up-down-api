@@ -163,3 +163,7 @@ resource "aws_alb_listener" "listener_http" {
     type             = "forward"
   }
 }
+
+output "alb_dns_name" {
+  value = "${aws_alb.alb.dns_name}"
+}
