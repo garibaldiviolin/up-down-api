@@ -19,5 +19,3 @@ variable "database_user" {}
 variable "allowed_cidr_blocks" {
   type = "list"
 }
-
-variable "s3_bucket_name" {}

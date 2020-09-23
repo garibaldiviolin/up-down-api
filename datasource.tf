@@ -11,7 +11,6 @@ data "template_file" "provision" {
     database_name     = "${var.database_name}"
     database_password = "${var.database_password}"
     region            = "${var.region}"
-    s3_bucket_name    = "${var.s3_bucket_name}"
     alb_endpoint      = "${aws_alb.alb.dns_name}"
   }
 }
