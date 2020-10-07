@@ -57,8 +57,10 @@ resource "aws_db_instance" "default" {
   password                  = "${var.database_password}"
   db_subnet_group_name      = "${aws_db_subnet_group.default.id}"
   vpc_security_group_ids    = ["${aws_security_group.rds.id}"]
+  backup_retention_period   = 1
   skip_final_snapshot       = true
   final_snapshot_identifier = "Ignore"
+  publicly_accessible       = true
 }
 
 # Manage the PostgreSQL configuration by creating a parameter group.
