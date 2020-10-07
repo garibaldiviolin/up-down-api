@@ -67,3 +67,16 @@ resource "aws_db_parameter_group" "default" {
   description = "Terraform example parameter group for postgresql12.3-R1"
   family      = "postgres12"
 }
+
+# Create a RDS PostgreSQL database instance in the VPC with our RDS subnet group and security group.
+resource "aws_db_instance" "replica" {
+  identifier                = "${var.rds_instance_identifier}-replica"
+  engine                    = "postgres"
+  engine_version            = "12.3"
+  instance_class            = "db.t2.micro"
+  replicate_source_db       = "${aws_db_instance.default.id}"
+  vpc_security_group_ids    = ["${aws_security_group.rds.id}"]
+  skip_final_snapshot       = true
+  final_snapshot_identifier = "Ignore"
+  publicly_accessible       = true
+}
