@@ -10,3 +10,7 @@ The main idea here is to:
 
 ## REST API
 More details about the REST API used can be found here: https://github.com/garibaldiviolin/pythonapi
+
+## Requirements
+- Ubuntu distribution
+- Python 3+
