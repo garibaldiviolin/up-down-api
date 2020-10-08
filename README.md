@@ -12,5 +12,6 @@ The main idea here is to:
 More details about the REST API used can be found here: https://github.com/garibaldiviolin/pythonapi
 
 ## Requirements
-- Ubuntu distribution
-- Python 3+
+- Ubuntu distribution;
+- Python 3+;
+- A `access_key` and a `secret_key` with programming access to AWS.
