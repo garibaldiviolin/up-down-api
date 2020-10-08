@@ -1,0 +1,15 @@
+access_key = "your_aws_access_key"
+secret_key = "your_aws_secret_key"
+amis = {
+  "us-east-2" = "ami-0603cbe34fd08cb81"
+}
+autoscaling_group_max_size = 3
+autoscaling_group_min_size = 3
+database_name = "employee2"
+database_user = "terraform"
+database_password = "#J3dfv2h6erg"
+instance_type = "t2.micro"
+rds_instance_identifier = "terraform-postgres"
+region = "us-east-2"
+public_key_path = "path_to_your_ssh_public_key"
+allowed_cidr_blocks = ["0.0.0.0/0"]
