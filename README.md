@@ -8,6 +8,5 @@ The main idea here is to:
 2) download, configure, and run this web application in the EC2 instances;
 3) perform a stress test by calling multiple async client requests to the REST API and then shows the time results.
 
-
-
-
+## REST API
+More details about the REST API used can be found here: https://github.com/garibaldiviolin/pythonapi
