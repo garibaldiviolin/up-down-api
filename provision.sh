@@ -1,9 +1,7 @@
 #!/bin/bash
 
 ###
-## Provision the Spring Boot application
-## Adapted from the following blog post:
-## http://zoltanaltfatter.com/2016/12/17/spring-boot-application-on-ec2/
+## Provision the web application
 ###
 
 sudo su
@@ -18,9 +16,9 @@ yum groupinstall "Development Tools" -y
 yum install nginx -y
 amazon-linux-extras install nginx1 -y
 
-# Create a new user to run the Spring Boot application as a service and disable the login shell
-useradd springboot
-chsh -s /sbin/nologin springboot
+# Create a new user to run the web application as a service and disable the login shell
+useradd webapp
+chsh -s /sbin/nologin webapp
 
 # Install Git
 yum install git -y
@@ -38,21 +36,21 @@ echo 'export PATH="$PATH:/usr/local/bin"' >> ~/.bashrc
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
 echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
 
-echo 'export PATH="$PATH:/usr/local/bin"' >> /home/springboot/.bashrc
-echo 'export PYENV_ROOT="$HOME/.pyenv"' >> /home/springboot/.bashrc
-echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> /home/springboot/.bashrc
+echo 'export PATH="$PATH:/usr/local/bin"' >> /home/webapp/.bashrc
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> /home/webapp/.bashrc
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> /home/webapp/.bashrc
 
 # pyenv install 3.8.5
 
 # Downloads application repository
-git clone https://github.com/garibaldiviolin/pythonapi.git /home/springboot/pythonapi
+git clone https://github.com/garibaldiviolin/pythonapi.git /home/webapp/pythonapi
 
-echo "DATABASE_HOST=${database_endpoint}" | sed -e 's/\(:5432\)*$//g' > /home/springboot/pythonapi/.env
-echo "DATABASE_USER=${database_user}" >> /home/springboot/pythonapi/.env
-echo "DATABASE_PASSWORD=${database_password}" >> /home/springboot/pythonapi/.env
-echo "ALLOWED_HOSTS=${alb_endpoint}" >> /home/springboot/pythonapi/.env
+echo "DATABASE_HOST=${database_endpoint}" | sed -e 's/\(:5432\)*$//g' > /home/webapp/pythonapi/.env
+echo "DATABASE_USER=${database_user}" >> /home/webapp/pythonapi/.env
+echo "DATABASE_PASSWORD=${database_password}" >> /home/webapp/pythonapi/.env
+echo "ALLOWED_HOSTS=${alb_endpoint}" >> /home/webapp/pythonapi/.env
 
-cd /home/springboot/pythonapi
+cd /home/webapp/pythonapi
 
 # psycopg2 dependencies
 yum install python-devel postgresql-devel -y
@@ -62,7 +60,7 @@ pipenv install --dev
 pipenv run python src/manage.py migrate
 
 # Write a Nginx site configuration file to redirect port 80 to 8080
-cat << EOF > /etc/nginx/conf.d/springboot-s3-example-nginx.conf
+cat << EOF > /etc/nginx/conf.d/webapp.conf
 server {
     listen 80 default_server;
 
@@ -111,7 +109,7 @@ http {
 }
 EOF
 
-# Start the Nginx and Spring Boot services
+# Start the Nginx and Webapp services
 service nginx start
 
-pipenv run gunicorn --chdir src/ pythonapi.wsgi -b 127.0.0.1:8080 &
+pipenv run gunicorn --chdir src/ pythonapi.wsgi --workers=2 -b 127.0.0.1:8080 &
