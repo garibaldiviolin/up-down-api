@@ -1,17 +1,18 @@
 #/bin/bash
 
-# If user.tfvars file is not present, ask and save the
+# If terraform.tfvars file is not present, ask and save the
 # user's AWS credentials and region to be used by Terraform
-if ! [ -e ./user.tfvars ]; then
+if ! [ -e ./terraform.tfvars ]; then
     echo "Please inform your AWS credentials and region"
     read -p "region: " region
     read -p "access_key: " access_key
     read -p "secret_key: " secret_key
 
-    echo "access_key = $access_key" >> user.tfvars
-    echo "secret_key = $secret_key" >> user.tfvars
-    echo "public_key_path = $PWD/id_rsa.pub" >> user.tfvars
-    echo >> user.tfvars
+    cp variables.template terraform.tfvars
+    echo "access_key = $access_key" >> terraform.tfvars
+    echo "secret_key = $secret_key" >> terraform.tfvars
+    echo "public_key_path = $PWD/id_rsa.pub" >> terraform.tfvars
+    echo >> terraform.tfvars
 fi
 
 # if unzip is not present, install it
@@ -38,4 +39,5 @@ if ! [ -e ./id_rsa ]; then
 fi
 
 terraform init
-terraform plan -var-file="user.tfvars"
+terraform plan
+terraform destroy
