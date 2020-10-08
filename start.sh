@@ -2,6 +2,8 @@
 
 # If terraform.tfvars file is not present, ask and save the
 # user's AWS credentials and region to be used by Terraform
+# It also creates the terraform.tfvars based on a variables.template
+# file, so DO NOT modify or remove this file!
 if ! [ -e ./terraform.tfvars ]; then
     echo "Please inform your AWS credentials and region"
     read -p "region: " region
