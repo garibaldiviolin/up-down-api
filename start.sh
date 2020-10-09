@@ -56,4 +56,8 @@ fi
 # Load Balancer, and will be used by the test script
 echo "API_URL=http://$(terraform output alb_dns_name)" > ./requests-employees-test/.env
 
+cd requests-employees-test
+pipenv run python test_api.py
+cd ..
+
 terraform destroy
