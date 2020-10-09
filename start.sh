@@ -42,4 +42,11 @@ fi
 
 terraform init
 terraform apply
+
+# Creates the .env file with the API_URL that should point to the Application
+# Load Balancer, and will be used by the test script
+if ! [ -e ./.env ]; then
+    echo "API_URL=http://$(terraform output alb_dns_name)" > .env
+fi
+
 terraform destroy
