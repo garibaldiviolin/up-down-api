@@ -45,6 +45,6 @@ terraform apply
 
 # Creates the .env file with the API_URL that should point to the Application
 # Load Balancer, and will be used by the test script
-echo "API_URL=http://$(terraform output alb_dns_name)" > .env
+echo "API_URL=http://$(terraform output alb_dns_name)" > ./requests-employees-test/.env
 
 terraform destroy
