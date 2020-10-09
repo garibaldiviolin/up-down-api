@@ -43,6 +43,15 @@ fi
 terraform init
 terraform apply
 
+# if requests-employees-test directory does not exist, download and install
+# pipenv environment
+if ! [ -e ./requests-employees-test ]; then
+    git clone https://github.com/garibaldiviolin/requests-employees-test.git
+    cd requests-employees-test
+    pipenv install
+    cd ..
+fi
+
 # Creates the .env file with the API_URL that should point to the Application
 # Load Balancer, and will be used by the test script
 echo "API_URL=http://$(terraform output alb_dns_name)" > ./requests-employees-test/.env
