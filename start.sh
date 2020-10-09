@@ -11,9 +11,9 @@ if ! [ -e ./terraform.tfvars ]; then
     read -p "secret_key: " secret_key
 
     cp variables.template terraform.tfvars
-    echo "access_key = $access_key" >> terraform.tfvars
-    echo "secret_key = $secret_key" >> terraform.tfvars
-    echo "public_key_path = $PWD/id_rsa.pub" >> terraform.tfvars
+    echo "access_key = \"$access_key\"" >> terraform.tfvars
+    echo "secret_key = \"$secret_key\"" >> terraform.tfvars
+    echo "public_key_path = \"$PWD/id_rsa.pub\"" >> terraform.tfvars
     echo >> terraform.tfvars
 fi
 
