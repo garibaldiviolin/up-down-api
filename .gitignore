@@ -139,3 +139,6 @@ aws_credentials
 # SSH keys
 id_rsa
 id_rsa.pub
+
+# requests-employees-test repository
+requests-employees-test*
