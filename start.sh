@@ -41,5 +41,5 @@ if ! [ -e ./id_rsa ]; then
 fi
 
 terraform init
-terraform plan
+terraform apply
 terraform destroy
