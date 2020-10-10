@@ -41,7 +41,7 @@ if ! [ -e ./id_rsa ]; then
 fi
 
 terraform init
-terraform apply
+terraform apply -auto-approve
 
 # if requests-employees-test directory does not exist, download and install
 # pipenv environment
@@ -60,4 +60,4 @@ cd requests-employees-test
 pipenv run python test_api.py
 cd ..
 
-terraform destroy
+terraform destroy -auto-approve
