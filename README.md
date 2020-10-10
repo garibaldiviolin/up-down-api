@@ -1,5 +1,5 @@
 # up-down-api
-An entire API ecosystem built using Python, Django, Django REST Framework, Postgres, Terraform and AWS that was developed to test a specific API performance, and then destroy the entire infrastructure at AWS to avoid paying for that. **P.S. currently, the entire infrasctructure of this project is covered by free tier, of course, if the used account is covered by that.**
+An entire API ecosystem built using Python, Django, Django REST Framework, Postgres, Terraform and AWS that was developed to test a specific API performance, and then destroy the entire infrastructure at AWS to avoid paying more money for that. **P.S. currently, the entire infrasctructure of this project is covered by free tier, of course, if the used account is covered by that.**
 Based on the article: https://hiveit.co.uk/techshop/terraform-aws-vpc-example/05-prepare-a-web-application-for-ec2/
 
 ## Objective
